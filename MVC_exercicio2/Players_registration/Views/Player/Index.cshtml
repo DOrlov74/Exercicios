@@ -1,0 +1,31 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<Players_registration.ViewModels.PlayerTeam>
+    <h2>Players table</h2>
+<table class="players-table table table-striped .table-hover">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Points</th>
+        <th>Rating</th>
+        <th>Team</th>
+    </tr>
+    </thead>
+    <tbody>
+    
+    @foreach (var p in Model)
+    {
+        <tr>
+            <td>@p.Player.Id</td>
+            <td>@p.Player.Name</td>
+            <td>@p.Player.Points</td>
+            <td>@p.Player.Rating</td>
+            <td>@p.Team.Name</td>
+        </tr>
+    }
+    </tbody>
+</table>
