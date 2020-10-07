@@ -5728,11 +5728,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "G:\\Dan\\Rumos\\Repos\\MVC_exercicio1\\MVC_exercicio1\\MVC_exercicio1.csproj",
+      "projectUniqueName": "g:\\Dan\\Rumos\\Repos\\MVC_exercicio1\\MVC_exercicio1\\MVC_exercicio1\\MVC_exercicio1.csproj",
       "projectName": "MVC_exercicio1",
-      "projectPath": "G:\\Dan\\Rumos\\Repos\\MVC_exercicio1\\MVC_exercicio1\\MVC_exercicio1.csproj",
+      "projectPath": "g:\\Dan\\Rumos\\Repos\\MVC_exercicio1\\MVC_exercicio1\\MVC_exercicio1\\MVC_exercicio1.csproj",
       "packagesPath": "C:\\Users\\Dan\\.nuget\\packages\\",
-      "outputPath": "G:\\Dan\\Rumos\\Repos\\MVC_exercicio1\\MVC_exercicio1\\obj\\",
+      "outputPath": "g:\\Dan\\Rumos\\Repos\\MVC_exercicio1\\MVC_exercicio1\\MVC_exercicio1\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Microsoft\\Xamarin\\NuGet\\",

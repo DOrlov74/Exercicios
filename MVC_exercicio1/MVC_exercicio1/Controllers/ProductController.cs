@@ -46,5 +46,6 @@ namespace MVC_exercicio1.Controllers
         {
             return _productService.MediaDePrecosDosProdutos();
         }
+
     }
 }
