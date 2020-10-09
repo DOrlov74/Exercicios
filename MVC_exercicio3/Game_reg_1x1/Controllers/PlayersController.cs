@@ -54,7 +54,7 @@ namespace Game_reg_1x1.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Rating,Victories,Fails")] Player player)
+        public async Task<IActionResult> Create( Player player)
         {
             if (ModelState.IsValid)
             {
