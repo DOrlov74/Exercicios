@@ -35,5 +35,12 @@ namespace Players_registration.Controllers
             }; 
             return View(players);
         }
+
+        public IActionResult List()
+        {
+            ViewData["Title"] = "Players table";
+            List<Player> players = _context.Player.Include("Team").ToList();
+            return View(players);
+        }
     }
 }
