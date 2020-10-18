@@ -1,0 +1,107 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1>Add pessoa</h1>
+<div class="container">
+    <form class="pessoa-form form-group" method="post">
+        <label for="name" class="control-label col-md-2">Nome</label>
+        <input id="name" name="name" class="form-control col-md-4" required></input>
+        <label for="distrito" class="control-label col-md-2">Distrito</label>
+        <select id="distrito" name="distrito" class="distritos form-control col-md-4" required><option value="" disabled selected hidden>Select Distrito</option></select>
+        <label for="conselho" class="control-label col-md-2">Conselho</label>
+        <select id="conselho" name="conselho" class="conselhos form-control col-md-4" required=""><option value="" disabled selected hidden>Select Conselho</option></select>
+        <label for="freguesia" class="control-label col-md-2">Freguesia</label>
+        <select id="freguesia" name="freguesia" class="freguesias form-control col-md-4" required=""><option value="" disabled selected hidden>Select Freguesia</option></select>
+        <div class="message text-danger" ></div>
+        <input type="submit" class="btn btn-outline-secondary mt-3" value="Submit"/>
+    </form>
+</div>
+<script>
+    const nameInput = document.querySelector("#name");
+    const distrSelect = document.querySelector(".distritos");
+    const conselhoSelect = document.querySelector(".conselhos");
+    const freguesiaSelect = document.querySelector(".freguesias");
+    const form = document.querySelector(".pessoa-form");
+    const messageDiv = document.querySelector(".message");
+    fetch("api/distritos")
+        .then(response => response.json())
+        .then(result => result.forEach(addDistr));
+    function addDistr(item) { distrSelect.innerHTML += '<option id="'+item.id+'">' + item.name + '</option >'; };
+    function addConselho(item) { conselhoSelect.innerHTML += '<option id="' + item.id +'">' + item.name + '</option >'; };
+    function addfreguesia(item) { freguesiaSelect.innerHTML += '<option id="' + item.id +'">' + item.name + '</option >'; };
+    function fetchConselhos() {
+        const distrito = distrSelect.selectedIndex;
+        const distritoId = distrSelect.options[distrito].id;
+        conselhoSelect.innerHTML = "<option value='' disabled selected hidden>Select Conselho</option>";
+        fetch("api/conselhos/" + distritoId)
+            .then(response => response.json())
+            .then(result => result.forEach(addConselho));
+    };
+    distrSelect.addEventListener('change', fetchConselhos);
+    function fetchFreguesias() {
+        //const distrito = distrSelect.selectedIndex;
+        const conselho = conselhoSelect.selectedIndex;
+        const conselhoId = conselhoSelect.options[conselho].id;
+        freguesiaSelect.innerHTML = "<option value='' disabled selected hidden>Select Freguesia</option>";
+        fetch("api/freguesias/" + conselhoId)
+            .then(response => response.json())
+            .then(result => result.forEach(addfreguesia));
+    };
+    conselhoSelect.addEventListener('change', fetchFreguesias);
+    function addPessoa(e) {
+        if (form.checkValidity()) {
+            e.preventDefault();
+            const distrito = distrSelect.selectedIndex;
+            const distritoId = distrSelect.options[distrito].id;
+            const conselho = conselhoSelect.selectedIndex;
+            const conselhoId = conselhoSelect.options[conselho].id;
+            const freguesia = freguesiaSelect.selectedIndex;
+            const freguesiaId = freguesiaSelect.options[freguesia].id;
+            const pessoa = {
+                'Name': nameInput.value,
+                'DistritoId': parseInt(distritoId),
+                'ConselhoId': parseInt(conselhoId),
+                'FreguesiaId': parseInt(freguesiaId)
+            }
+            fetch("api/pessoas",
+                    {
+                        method: "POST",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(pessoa)
+                    })
+                .then(response => response.json())
+                .then(result => {
+                    console.log(result);
+                    form.reset();
+                    messageDiv.innerHTML = 'Pessoa '+result.name+' está adicionada';
+            });
+        }
+    };
+    form.addEventListener('submit', addPessoa);
+
+    function validateInput(e) {
+        const errorDiv = document.querySelector('.' + e.target.name + '-error');
+        if (!errorDiv) {
+            if (!e.target.checkValidity()) {
+                const errorDiv = document.createElement('div');
+                errorDiv.classList.add(e.target.name + '-error');
+                errorDiv.innerHTML += e.target.name + ' ' + e.target.validationMessage;
+                messageDiv.appendChild(errorDiv);
+            }
+        } else {
+            if (e.target.checkValidity()) {
+                errorDiv.remove();
+            }
+        }
+        
+    }
+    nameInput.addEventListener('blur', validateInput);
+    distrSelect.addEventListener('blur', validateInput);
+    conselhoSelect.addEventListener('blur', validateInput);
+    freguesiaSelect.addEventListener('blur', validateInput);
+
+</script>

@@ -1,0 +1,32 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<h1 class="h1">Pessoas</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Distrito</th>
+        <th>Conselho</th>
+        <th>Freguesia</th>
+    </tr>
+    </thead>
+    <tbody class="content">
+
+    </tbody>
+</table>
+<script>
+    const content = document.querySelector('.content');
+    fetch("https://localhost:44329/api/Pessoas")
+        .then(response => response.json())
+        .then(result => {
+            result.forEach(addPessoa);
+            console.log(result);
+        });
+    function addPessoa(item) {
+         content.innerHTML += "<tr> <td>" + item.id + "</td><td>" + item.name + "</td><td>" + item.distrito + "</td><td>" + item.conselho + "</td><td>" + item.freguesia.name + "</td></tr >";
+    };
+</script>
